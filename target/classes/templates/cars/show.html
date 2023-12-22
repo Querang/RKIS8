@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${car.getName()}"></title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+</head>
+<div th:replace="~{cars/header :: header}"></div>
+<div class="container">
+    <div class="card">
+        <div class="card-content">
+            <p th:text="'| ' + ${car.getName() + ' |'}"></p>
+            <p th:text="'| ' + ${car.getBrand()} + ' |'"></p>
+            <p th:text="'| ' + ${car.getCountry()} + ' |'"></p>
+            <p th:text="'| ' + ${car.getPrice() + ' р.' + ' |'}"></p>
+            <p th:text="'| ' + ${car.getQuantity()} + ' на складе' + ' |'"></p>
+        </div>
+        <div class="card-action">
+            <a class="btn" th:href="@{/cars/{id}/edit(id=${car.getId()})}">Edit</a>
+            <form th:method="DELETE" th:action="@{/cars/{id}(id=${car.getId()})}" style="display: inline;">
+                <button class="btn red" type="submit" name="action">Delete</button>
+            </form>
+            <form th:method="PATCH" th:action="@{/cars/{id}/buy(id=${car.getId()})}" style="display: inline;">
+                <button th:if="${car.getQuantity() > 0}" class="btn blue" type="submit" name="action">Buy</button>
+                <button th:unless="${car.getQuantity() > 0}" class="btn blue" type="button" disabled>No cars!</button>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

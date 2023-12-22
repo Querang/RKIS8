@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="'Editing ' + ${car.getName()}"></title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js" defer></script>
+</head>
+<body>
+<div th:replace="~{cars/header :: header}"></div>
+
+<div class="container">
+    <form th:action="@{/cars/{id}(id=${car.getId()})}" th:method="PATCH" th:object="${car}">
+        <div class="input-field">
+            <label for="name">Имя:</label>
+            <input type="text" id="name" name="name" th:field="*{name}" required>
+            <div style="color:red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name Error</div>
+        </div>
+        <br>
+
+        <div class="input-field">
+            <label for="brand">Брэнд:</label>
+            <input type="text" id="brand" name="brand" th:field="*{brand}" required>
+            <div style="color:red" th:if="${#fields.hasErrors('brand')}" th:errors="*{brand}">Brand Error</div>
+        </div>
+        <br>
+
+        <div class="input-field">
+            <label for="country">Страна:</label>
+            <input type="text" id="country" name="country" th:field="*{country}" required>
+            <div style="color:red" th:if="${#fields.hasErrors('country')}" th:errors="*{country}">Country Error</div>
+        </div>
+        <br>
+
+        <div class="input-field">
+            <label for="price">Цена:</label>
+            <input type="text" inputmode="decimal" id="price" name="price" pattern="[0-9]*[.,]?[0-9]*" th:field="*{price}" required>
+            <div style="color:red" th:if="${#fields.hasErrors('price')}" th:errors="*{price}">Price Error</div>
+        </div>
+        <br>
+
+        <div class="input-field">
+            <label for="quantity">Количество:</label>
+            <input type="number" id="quantity" name="quantity" th:field="*{quantity}" required>
+            <div style="color:red" th:if="${#fields.hasErrors('quantity')}" th:errors="*{quantity}">Quantity Error</div>
+        </div>
+        <br>
+
+        <button class="btn" type="submit" name="action">Готово</button>
+    </form>
+</div>
+</body>
+</html>
